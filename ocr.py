@@ -29,7 +29,7 @@ if uploaded_file is not None :
     image = vision.Image(content=content)
     response = client.document_text_detection(image=image)
 
-    # 결과 출력
+    # 결과 출력 분기
     if response.full_text_annotation:
         text = response.full_text_annotation.text
         st.subheader("인식 결과:")
