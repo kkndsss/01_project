@@ -18,6 +18,7 @@ st.title("한자 고문서 인식 컨텐츠 생성기 -한지락-")
 #모듈 순서대로 배치
 st.write("qksemtl ekdmatnstjeofh wlsgod")
 
+#타입 힌팅은 나중에...
 #1.run_ocr이미지를 넣으면 구글 ocr을 가동하여 안에 있는 한자를 가로쓰기 형태로 인식해서 추출하는 함수 
 run_ocr()
 
