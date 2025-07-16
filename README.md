@@ -40,11 +40,17 @@
 ## 4.필요 도구
 
 **Python**
+
 **Git**
+
 **Streamlit**
+
 **Upstage Solar:** api키 발급 필요
+
 **Google cloud vision ocr:** json 인증키 발급 필요. 공식 사이트(https://cloud.google.com/vision?hl=ko), 발급 참조글(https://bkyungkeem.tistory.com/40)
+
 **Google Gemini:** Google AI studio에서 발급 필요.
+
 
 ## 5.실행 방법
 
