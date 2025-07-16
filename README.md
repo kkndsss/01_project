@@ -1,23 +1,5 @@
 # 01_project
 
-main 으로 실행
-모듈은 
-
-1단계 =ocr_m.py
-2단계 =compare_m.py
-3단계 =filling_m.py
-4단계 =contents_gen_m.py
-
-*구글 클라우드 비젼 API 발급 방법(아래 블로그 참조)
-1.API json파일 발급
-https://bkyungkeem.tistory.com/40
-
-2. .env에 다음과 같이 작성
-GOOGLE_APPLICATION_CREDENTIALS=[본인 json경로]
-SOLAR_API_KEY=[]
-GOOGLE_GEMINI_API_KEY
-
-
 #프로젝트 '한지락' 소개
 
 ##1.프로젝트 개요
@@ -31,6 +13,7 @@ GOOGLE_GEMINI_API_KEY
 **현대적 컨텐츠로 변환:** 완성된 문장을 LLM 프롬프트를 이용하여 어린이들도 이해하기 쉬운 동화 형태로 변환
 
 ##3.작동 순서
+
 **main.py:** 스트림릿 프레임워크, 모듈 함수 차례대로 진행
 1)run_ocr()
 
@@ -48,7 +31,9 @@ GOOGLE_GEMINI_API_KEY
 
 **contents_gen_m.py:** generate_contents() 모듈. 컨텐츠 생성 버튼. 최종 결과
 
+
 ##4.필요 도구
+
 **Python**
 **Git**
 **Streamlit**
@@ -56,30 +41,35 @@ GOOGLE_GEMINI_API_KEY
 **Google cloud vision ocr:** json 인증키 발급 필요. 공식 사이트(https://cloud.google.com/vision?hl=ko), 발급 참조글(https://bkyungkeem.tistory.com/40)
 **Google Gemini:** Google AI studio에서 발급 필요.
 
-##5.실행 방법##
-#1) 클론#
+##5.실행 방법
+
+###1) 클론
+
 git clone https://github.com/kkndsss/01_project.git
 
 cd 01_project
 
-#2) 패키지#
+###2) 패키지
+
 pip install -r requirements.txt
 
-#3) 환경변수 .env#
+###3) 환경변수 .env
+
 GOOGLE_APPLICATION_CREDENTIALS= 구글 클라우드 비전 인증 json 파일 경로
 SOLAR_API_KEY=api키
 GOOGLE_GEMINI_API_KEY=api키
 
-#4) 실행#
+###4) 실행
+
 streamlit run main.py
 
-##6.사용 방법##
+##6.사용 방법
 1)고문서 이미지 입력(sample_data 폴더에 이미지-json 세트 20개 구비)
 2)고문서 json 입력
 3)'자동수정 실행 버튼' 클릭
 4)'컨텐츠 생성' 버튼 클릭 ->결과 출력
 
-##7.최종결과 출력 예시##
+##7.최종결과 출력 예시
 
 1)보정 문장
 熙周善友蓮
