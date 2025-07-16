@@ -67,8 +67,11 @@ pip install -r requirements.txt
 ### 3) 환경변수 .env
 
 GOOGLE_APPLICATION_CREDENTIALS= 구글 클라우드 비전 인증 json 파일 경로
+
 SOLAR_API_KEY=api키
+
 GOOGLE_GEMINI_API_KEY=api키
+
 
 ### 4) 실행
 
@@ -77,9 +80,13 @@ streamlit run main.py
 ## 6.사용 방법
 
 1)고문서 이미지 입력(sample_data 폴더에 이미지-json 세트 20개 구비)
+
 2)고문서 json 입력
+
 3)'자동수정 실행 버튼' 클릭
+
 4)'컨텐츠 생성' 버튼 클릭 ->결과 출력
+
 
 ## 7.최종결과 출력 예시
 
