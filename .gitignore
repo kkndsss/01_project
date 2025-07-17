@@ -3,3 +3,5 @@
 api/api.json
 *.zip
 api.json
+__pycache__/
+*.pyc

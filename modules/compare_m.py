@@ -1,5 +1,6 @@
 import streamlit as st
 import json
+from collections import Counter
 
 def run_compare():
     #제목
@@ -58,9 +59,56 @@ def run_compare():
         correct_text = "\n".join(lines)
 
         #스트림릿 출력
-        st.text_area("정답지 가로쓰기 결과 출력", value=correct_text)
+        st.text_area("정답지 가로쓰기 결과 출력", value=correct_text, height=300)
         #모듈화를 위해 결과값을 변수에 저장
         st.session_state["correct_text"] = correct_text
     #json이 안들어오면 동작이 멈추는 것을 방지하고자 ocr 때처럼 문자경고    
     else:
         st.write("JSON 파일을 업로드하세요.")
+
+#정확도 계산기 Counter로 구현
+#ocr 모듈과 run_compare함수에서 출력된 텍스트들을 인자로 가져온다.
+#가져와서 공백, 탭, 줄바꿈 등, 계산에 방해될 요소를 replace 매소드로 모두 삭제.
+#정답지-ocr=틀린 글자
+#중복 포함, 두 변수의 모든 글자의 갯수만 따와서 합침
+#(정답지 총 글자갯수-틀린 글자/정답지 총 글자갯수)*100 = 정확도
+#결과값 반환 
+def cal_accuracy(ocr, labeled_json):
+    ocr_clean = ocr.replace(' ', '').replace('\n', '')
+    labeled_json_clean = labeled_json.replace(' ', '').replace('\n', '')
+    count_ocr=Counter(ocr_clean)
+    count_labeled_json= Counter(labeled_json_clean)
+    missed_hanja= count_labeled_json-count_ocr
+    correct_total= sum(count_labeled_json.values())
+    wrong_total=sum(missed_hanja.values())
+    return ((correct_total-wrong_total)/correct_total)*100
+
+
+
+##코랩함수검증용
+# ocr="나는이나라의대통령인김재명입니다."
+# labeled_json="나는 이 나라의 대통령인 이재명입니다."
+
+# def cal_accuracy(ocr, labeled_json):
+#     ocr_clean = ocr.replace(' ', '').replace('\n', '')
+#     labeled_json_clean = labeled_json.replace(' ', '').replace('\n', '')
+#     count_ocr=Counter(ocr_clean)
+#     count_labeled_json= Counter(labeled_json_clean)
+#     missed_hanja= count_labeled_json-count_ocr
+#     correct_total= sum(count_labeled_json.values())
+#     wrong_total=sum(missed_hanja.values())
+#     return ((correct_total-wrong_total)/correct_total)*100
+# a=cal_accuracy(ocr, labeled_json)
+#a
+#print(f"정확도는 {a: .2f}%입니다.")
+
+def run_accuracy():
+    st.header("OCR 정확도 평가")
+    st.write("json 정답지와 비교")
+    ocr=st.session_state.get('ocr_result')
+    labeled_json=st.session_state.get("correct_text")
+    if ocr and labeled_json : 
+        acc=cal_accuracy(ocr, labeled_json)
+        st.success(f"인식된 OCR의 정확도는 {acc: .2f}%입니다.")
+    else:
+        st.warning("OCR 값과 정답지 값이 모두 필요합니다. 이전 단계로 돌아가주세요!")

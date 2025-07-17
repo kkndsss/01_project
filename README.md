@@ -91,8 +91,38 @@ streamlit run main.py
 
 4)'컨텐츠 생성' 버튼 클릭 ->결과 출력
 
+## 7.폴더 구조
 
-## 7.최종결과 출력 예시
+project_root/
+│
+├─ main.py                # 실행 코드
+├─ README.md              # 프로젝트 설명서
+├─ requirements.txt       # 필요한 파이썬 패키지 목록
+│
+├─ prompts/               # 프롬프트(txt) 파일 폴더
+│    └─ 동화.txt
+│    └─ 현대시.txt
+│    └─ ...
+│
+├─ modules/               # 기능별 파이썬 모듈 폴더
+│    ├─ __init__.py
+│    ├─ ocr_m.py
+│    ├─ compare_m.py
+│    ├─ filling_m.py
+│    └─ contents_gen_m.py
+│
+├─ data/                  # 데이터(샘플, 실험 등)
+│    ├─ sample_data/
+│    │    └─ ...         # 표준 실습 데이터(정답, 이미지 등)
+│    └─ simplemode_data/
+│         └─ ...         # 간편모드 테스트 데이터
+│
+└─ localpy/               # 실험/테스트용 개별 코드 모음
+     └─ ...
+
+
+
+## 8.최종결과 출력 예시
 
 1)보정 문장
 

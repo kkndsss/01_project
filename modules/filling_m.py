@@ -25,7 +25,7 @@ def run_filling():
 정답지=[{correct_text}]
 """
     api_key = os.getenv("SOLAR_API_KEY")
-    if st.button("LLM으로 비교/자동수정 실행"):
+    if st.button("OCR 오인식 자동수정"):
         client = OpenAI(
             api_key=api_key,
             base_url="https://api.upstage.ai/v1",
@@ -54,7 +54,7 @@ def run_filling():
                 filling_text = chunk.choices[0].delta.content
                 filled_text += filling_text
         #결과 출력        
-        st.text_area("보정 결과", value=filled_text)
+        st.text_area("보정 결과", value=filled_text, height=300)
         #success매소드 쓰면 좀 더 세련된 페이지 만들 수 있다고 누가 블로그에 써놓음        
         st.success("보정 성공")
         #4단계 컨텐츠 생성을 위한 완전한 문장 스트림릿 공유형태로 저장
