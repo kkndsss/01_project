@@ -3,7 +3,7 @@ from openai import OpenAI
 import os
 
 def run_filling():
-    st.header("3.Solar mini로 누락/오인식 한자 자동 보정")
+    st.header("3.Solar mini 활용 오인식 한자 자동 보정")
     #앞선 ocr 값과 json 정답지 모두 가지고 옴
     ocr_result = st.session_state.get("ocr_result", "")
     correct_text = st.session_state.get("correct_text", "")
