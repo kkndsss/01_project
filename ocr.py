@@ -35,14 +35,15 @@ if uploaded_file is not None :
     # 결과 출력 분기. 완성된 문장과 리스트 동시 출력
     if response.full_text_annotation:
         text = response.full_text_annotation.text
-        listtext=list(text)
-        onlyhanja=[]
-        for c in listtext:
-            if c != "\n" and c != " ":
-                onlyhanja.append(c)
+        st.session_state['ocr_result'] = text
+        # listtext=list(text)
+        # onlyhanja=[]
+        # for c in listtext:
+        #     if c != "\n" and c != " ":
+        #         onlyhanja.append(c)
         st.subheader("인식 결과 전체 문장:")
         st.text_area("인식 결과", text)
-        st.text(str(onlyhanja))
+        # st.text(str(onlyhanja))
         
     else:
         st.warning("텍스트 없음")
