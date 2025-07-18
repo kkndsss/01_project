@@ -20,7 +20,11 @@ try:
     with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as f:
         f.write(cred_json)
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = f.name
-except Exception:
+        # 아래 2줄 에러 확인
+        print("임시파일 경로:", f.name)
+        print("env GOOGLE_APPLICATION_CREDENTIALS:", os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"))
+except Exception as e:
+    print("인증 예외:", e)
     load_dotenv()
     # 로컬: .env에 GOOGLE_APPLICATION_CREDENTIALS=/경로/api.json
 

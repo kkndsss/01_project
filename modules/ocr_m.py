@@ -3,6 +3,8 @@ from google.cloud import vision
 
 #기존 코드 함수화
 def run_ocr():
+    print("ocr_m.py ENV GOOGLE_APPLICATION_CREDENTIALS:", os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"))
+    client = vision.ImageAnnotatorClient()
     st.header("1.이미지 OCR 인식")
     st.write("원문 고서 이미지를 넣어주세요")
     uploaded_file = st.file_uploader("고서이미지 형식[png, jpg, jpeg 등등]", type=["png", "jpg", "jpeg", "bmp", "gif"])
