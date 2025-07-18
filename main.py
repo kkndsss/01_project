@@ -6,17 +6,17 @@ import json
 # --- 인증 함수 정의 ---
 
 def setup_google_credentials():
-    st.write("[디버깅] setup_google_credentials 함수 실행됨")
+    # st.write("[디버깅] setup_google_credentials 함수 실행됨")
     try:
         default_dict = st.secrets["default"]
-        st.write("[디버깅] st.secrets[default]=", default_dict)
+        # st.write("[디버깅] st.secrets[default]=", default_dict)
         cred_json_str = default_dict["GOOGLE_APPLICATION_CREDENTIALS"]
         cred_json_dict = json.loads(cred_json_str)   # 꼭 dict로 변환!
         with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as f:
             json.dump(cred_json_dict, f)
             os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = f.name
-            st.write("[디버깅] 구글 인증 임시파일:", f.name)
-            st.write("[디버깅] 환경변수 값:", os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"))
+            # st.write("[디버깅] 구글 인증 임시파일:", f.name)
+            # st.write("[디버깅] 환경변수 값:", os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"))
     except Exception as e:
         st.error(f"[디버깅] 인증 예외: {e}")
 
