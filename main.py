@@ -8,9 +8,24 @@ from modules.contents_gen_m import generate_contents
 
 #일단 구글 클라우드 인증이 까다로우니까 이거부터
 load_dotenv()
+
+#스트림릿 secret과 로컬 인증 분리
+
+try:
+    cred_json = st.secrets["GOOGLE_APPLICATION_CREDENTIALS"]
+    import json, tempfile
+    with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as f:
+        f.write(cred_json if isinstance(cred_json, str) else json.dumps(dict(cred_json)))
+        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = f.name
+except Exception:
+    load_dotenv()
+
+# os.environ["SOLAR_API_KEY"]=st.secret
 #.env에 api.json파일 경로 저장. 그 안에 인증키값 있음. 
-API_json_key_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
-os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = API_json_key_path
+
+#과거 인증
+# API_json_key_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
+# os.environ['GOOGLE_APPLICATION_CREDENTIALS'] = API_json_key_path
 
 #페이지 표시내용.
 st.title("한자 고문서 인식 컨텐츠 생성기")
