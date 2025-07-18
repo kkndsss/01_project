@@ -1,5 +1,6 @@
 import streamlit as st
 from google.cloud import vision
+import os
 
 #기존 코드 함수화
 def run_ocr():

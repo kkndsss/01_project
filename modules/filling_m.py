@@ -24,7 +24,7 @@ def run_filling():
 
 정답지=[{correct_text}]
 """
-    api_key = os.getenv("SOLAR_API_KEY")
+    api_key = st.secrets["default"]["SOLAR_API_KEY"]
     if st.button("OCR 오인식 자동수정"):
         client = OpenAI(
             api_key=api_key,

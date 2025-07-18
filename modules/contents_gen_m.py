@@ -48,7 +48,7 @@ def generate_contents():
     #제미나이 문법은 그냥 저렇게 하래서 참고함.
 
     # 구글 비젼 키값은 main에 있다. 이 키값은 gemini 용
-    gemini_api_key = os.getenv("GOOGLE_GEMINI_API_KEY")
+    gemini_api_key = st.secrets["default"]["GOOGLE_GEMINI_API_KEY"]
     #이건 모듈화 하기 이전의 독립 실행 조건문인데 그냥 넣어도 상관 없을 것 같아서 살려둠.
     if not gemini_api_key:
         st.warning("GEMINI_API_KEY 가 설정되지 않았습니다.")

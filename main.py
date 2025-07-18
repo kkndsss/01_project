@@ -1,31 +1,36 @@
 import streamlit as st
-from dotenv import load_dotenv
 import os
 import tempfile
+import json
 
+# --- 인증 함수 정의 ---
+
+def setup_google_credentials():
+    st.write("[디버깅] setup_google_credentials 함수 실행됨")
+    try:
+        default_dict = st.secrets["default"]
+        st.write("[디버깅] st.secrets[default]=", default_dict)
+        cred_json_str = default_dict["GOOGLE_APPLICATION_CREDENTIALS"]
+        cred_json_dict = json.loads(cred_json_str)   # 꼭 dict로 변환!
+        with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as f:
+            json.dump(cred_json_dict, f)
+            os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = f.name
+            st.write("[디버깅] 구글 인증 임시파일:", f.name)
+            st.write("[디버깅] 환경변수 값:", os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"))
+    except Exception as e:
+        st.error(f"[디버깅] 인증 예외: {e}")
+
+# **반드시 모듈 import 전에 실행!**
+setup_google_credentials()
+
+# --- 이후는 기존 main.py 내용대로 쭉 이어가기 ---
 from modules.ocr_m import run_ocr
 from modules.compare_m import run_compare, run_accuracy
 from modules.filling_m import run_filling
 from modules.contents_gen_m import generate_contents
-
-#일단 구글 클라우드 인증이 까다로우니까 이거부터
-#지금은 로컬 분기라 필요없음.
-# load_dotenv()
-
-#스트림릿 secret과 로컬 인증 분리
-
-# 인증 (클라우드/로컬 자동 분기, json 모듈 불필요!)
-try:
-    cred_json = st.secrets["GOOGLE_APPLICATION_CREDENTIALS"]
-    with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as f:
-        f.write(cred_json)
-        os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = f.name
-        # 아래 2줄 에러 확인
-        print("임시파일 경로:", f.name)
-        print("env GOOGLE_APPLICATION_CREDENTIALS:", os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"))
-except Exception as e:
-    print("인증 예외:", e)
-    load_dotenv()
+        # fallback .env 처리 등
+        # 필요하면 .env fallback 처리
+    # load_dotenv() 등 로컬 fallback 처리
     # 로컬: .env에 GOOGLE_APPLICATION_CREDENTIALS=/경로/api.json
 
 # os.environ["SOLAR_API_KEY"]=st.secret
