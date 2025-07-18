@@ -9,7 +9,8 @@ from modules.filling_m import run_filling
 from modules.contents_gen_m import generate_contents
 
 #일단 구글 클라우드 인증이 까다로우니까 이거부터
-load_dotenv()
+#지금은 로컬 분기라 필요없음.
+# load_dotenv()
 
 #스트림릿 secret과 로컬 인증 분리
 
