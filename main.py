@@ -1,6 +1,8 @@
 import streamlit as st
 from dotenv import load_dotenv
 import os
+import tempfile
+
 from modules.ocr_m import run_ocr
 from modules.compare_m import run_compare, run_accuracy
 from modules.filling_m import run_filling
@@ -11,14 +13,15 @@ load_dotenv()
 
 #스트림릿 secret과 로컬 인증 분리
 
+# 인증 (클라우드/로컬 자동 분기, json 모듈 불필요!)
 try:
     cred_json = st.secrets["GOOGLE_APPLICATION_CREDENTIALS"]
-    import json, tempfile
     with tempfile.NamedTemporaryFile(mode="w", delete=False, suffix=".json") as f:
-        f.write(cred_json if isinstance(cred_json, str) else json.dumps(dict(cred_json)))
+        f.write(cred_json)
         os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = f.name
 except Exception:
     load_dotenv()
+    # 로컬: .env에 GOOGLE_APPLICATION_CREDENTIALS=/경로/api.json
 
 # os.environ["SOLAR_API_KEY"]=st.secret
 #.env에 api.json파일 경로 저장. 그 안에 인증키값 있음. 
