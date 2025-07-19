@@ -2,6 +2,7 @@ import streamlit as st
 import os
 import tempfile
 import json
+from dotenv import load_dotenv
 
 # --- 인증 함수 정의 ---
 
@@ -18,7 +19,13 @@ def setup_google_credentials():
             # st.write("[디버깅] 구글 인증 임시파일:", f.name)
             # st.write("[디버깅] 환경변수 값:", os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"))
     except Exception as e:
-        st.error(f"[디버깅] 인증 예외: {e}")
+        st.warning(f"[경고] st.secrets 인증 실패, .env로 대체")
+        load_dotenv()  # <- 이 부분만 except 블록에!
+        api_json_path = os.getenv("GOOGLE_APPLICATION_CREDENTIALS")
+        if api_json_path and os.path.exists(api_json_path):
+            os.environ["GOOGLE_APPLICATION_CREDENTIALS"] = api_json_path
+        else:
+            st.error("구글 인증 정보가 없습니다! st.secrets 또는 .env 설정을 확인하세요.")
 
 # **반드시 모듈 import 전에 실행!**
 setup_google_credentials()
@@ -28,13 +35,7 @@ from modules.ocr_m import run_ocr
 from modules.compare_m import run_compare, run_accuracy
 from modules.filling_m import run_filling
 from modules.contents_gen_m import generate_contents
-        # fallback .env 처리 등
-        # 필요하면 .env fallback 처리
-    # load_dotenv() 등 로컬 fallback 처리
-    # 로컬: .env에 GOOGLE_APPLICATION_CREDENTIALS=/경로/api.json
 
-# os.environ["SOLAR_API_KEY"]=st.secret
-#.env에 api.json파일 경로 저장. 그 안에 인증키값 있음. 
 
 #과거 인증
 # API_json_key_path = os.getenv('GOOGLE_APPLICATION_CREDENTIALS')
