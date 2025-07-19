@@ -4,6 +4,7 @@ import os
 
 #기존 코드 함수화
 def run_ocr():
+    
     print("ocr_m.py ENV GOOGLE_APPLICATION_CREDENTIALS:", os.environ.get("GOOGLE_APPLICATION_CREDENTIALS"))
     client = vision.ImageAnnotatorClient()
     st.header("1.이미지 OCR 인식")
